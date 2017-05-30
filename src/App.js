@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import { Row, Col } from 'react-bootstrap';
-import ListComponent from './components/ListComponent'
+import List from './components/List'
 
 class App extends Component {
   render() {
@@ -19,14 +19,14 @@ class App extends Component {
           <Row>
             <Col md={6}>
               Pros
-              <ListComponent
+              <List
                 valueArr={
                   ['It is really taste', 'It is really taste', 'It is really taste', 'It is really taste', 'It is really taste']
                 } />
             </Col>
             <Col md={6}>
               Cons
-              <ListComponent
+              <List
                 valueArr={
                   ['Too Expensive', 'New Entry']
                 } />

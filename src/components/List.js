@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import ListItem from './ListItem'
 import update from 'immutability-helper';
 
-class ListComponent extends Component {
+class List extends Component {
     constructor(props) {
         super(props)
         let { valueArr } = props
@@ -37,17 +38,31 @@ class ListComponent extends Component {
         }
     }
 
+    test(item) {
+        console.log(item)
+    }
+
     render() {
-
-        const styles = {
-            border: 'none'
-        }
-
         return (
             <div>
                 <ol>
-                    {this.state.valueArr.map((item, index) => {
-                        return (
+                    {this.state.valueArr.map((item, index) => 
+                        <ListItem key={index} 
+                                  value={item} 
+                                  index={index}
+                                  listItemInputChange={() => this.test(item)}/>
+                    )}
+                </ol>
+            </div>
+        )
+    }
+}
+
+export default List
+
+
+
+/*return (
                             <p key={index}>
                                 <span>{index + 1}.</span>
                                 <input style={styles}
@@ -55,12 +70,4 @@ class ListComponent extends Component {
                                        onChange={e => this.handleInputChanges(e, index)}
                                        onBlur={e => this.handleBlurChanges(e, index)} />
                             </p>
-                        )
-                    })}
-                </ol>
-            </div>
-        )
-    }
-}
-
-export default ListComponent
+                        )*/
