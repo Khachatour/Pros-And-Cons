@@ -21,14 +21,14 @@ class App extends Component {
               Pros
               <List
                 valueArr={
-                  ['It is really taste', 'It is really taste', 'It is really taste', 'It is really taste', 'It is really taste']
+                  ['It is really taste', 'It is really taste', 'It is really taste', 'It is really taste', 'It is really taste','']
                 } />
             </Col>
             <Col md={6}>
               Cons
               <List
                 valueArr={
-                  ['Too Expensive', 'New Entry']
+                  ['Too Expensive', 'New Entry','']
                 } />
             </Col>
           </Row>

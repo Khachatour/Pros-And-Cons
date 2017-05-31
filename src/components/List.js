@@ -1,56 +1,48 @@
 import React, { Component } from 'react'
 import ListItem from './ListItem'
-import update from 'immutability-helper';
 
 class List extends Component {
     constructor(props) {
         super(props)
-        let { valueArr } = props
         this.state = {
-            valueArr
+            valueArr: props.valueArr
         }
+        this.copiedArr = this.state.valueArr.slice()
     }
 
-    handleInputChanges(e, index) {
-        if (index === (this.state.valueArr.length - 1)) {
-            //Updates value in state using immutability-helper
-            this.setState({
-                valueArr: update(this.state.valueArr, { $splice: [[index, 1, e.target.value]], $push: [''] })
-            })
-        } else {
-            if (e.target.value === '') {
-                this.setState({
-                    valueArr: update(this.state.valueArr, { $splice: [[index, 1]] })
-                })
-            } else {
-                this.setState({
-                    valueArr: update(this.state.valueArr, { $splice: [[index, 1, e.target.value]] })
-                })
-            }
-        }
+    lastItemHandle(newVal) {
+        this.copiedArr[this.copiedArr.length-1] = newVal
+        this.copiedArr.push('')
+        this.setState({
+            valueArr: this.copiedArr
+        })
     }
 
-    handleBlurChanges(e, index) {
-        if (!e.target.value && index === (this.state.valueArr.length - 1)) {
-            this.setState({
-                valueArr: update(this.state.valueArr, { $splice: [[index, 1]] })
-            })
-        }
+    deleteItem(index) {
+        this.copiedArr.splice(index, 1)
+        this.setState({
+            valueArr: this.copiedArr
+        })
     }
-
-    test(item) {
-        console.log(item)
+    editItem(newVal, index) {
+        this.copiedArr[index] = newVal
+        this.setState({
+            valueArr: this.copiedArr
+        })
     }
 
     render() {
+        const {valueArr} = this.state
         return (
             <div>
                 <ol>
                     {this.state.valueArr.map((item, index) => 
                         <ListItem key={index} 
-                                  value={item} 
+                                  valueArr={valueArr} 
                                   index={index}
-                                  listItemInputChange={() => this.test(item)}/>
+                                  lastItemHandle={(e) => this.lastItemHandle(e)}
+                                  deleteItem={() => this.deleteItem(index)}
+                                  editItem={(e) => this.editItem(e, index)}/>
                     )}
                 </ol>
             </div>
