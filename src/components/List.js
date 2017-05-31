@@ -11,7 +11,7 @@ class List extends Component {
     }
 
     lastItemHandle(newVal) {
-        this.copiedArr[this.copiedArr.length-1] = newVal
+        this.copiedArr[this.copiedArr.length - 1] = newVal
         this.copiedArr.push('')
         this.setState({
             valueArr: this.copiedArr
@@ -32,17 +32,17 @@ class List extends Component {
     }
 
     render() {
-        const {valueArr} = this.state
+        const { valueArr } = this.state
         return (
             <div>
                 <ol>
-                    {this.state.valueArr.map((item, index) => 
-                        <ListItem key={index} 
-                                  valueArr={valueArr} 
-                                  index={index}
-                                  lastItemHandle={(e) => this.lastItemHandle(e)}
-                                  deleteItem={() => this.deleteItem(index)}
-                                  editItem={(e) => this.editItem(e, index)}/>
+                    {this.state.valueArr.map((item, index) =>
+                        <ListItem key={index}
+                            valueArr={valueArr}
+                            index={index}
+                            lastItemHandle={(e) => this.lastItemHandle(e)}
+                            deleteItem={() => this.deleteItem(index)}
+                            editItem={(e) => this.editItem(e, index)} />
                     )}
                 </ol>
             </div>
@@ -51,15 +51,3 @@ class List extends Component {
 }
 
 export default List
-
-
-
-/*return (
-                            <p key={index}>
-                                <span>{index + 1}.</span>
-                                <input style={styles}
-                                       value={item}
-                                       onChange={e => this.handleInputChanges(e, index)}
-                                       onBlur={e => this.handleBlurChanges(e, index)} />
-                            </p>
-                        )*/
