@@ -7,41 +7,48 @@ class List extends Component {
         this.state = {
             valueArr: props.valueArr
         }
-        this.copiedArr = this.state.valueArr.slice()
     }
 
-    lastItemHandle(newVal) {
-        this.copiedArr[this.copiedArr.length - 1] = newVal
-        this.copiedArr.push('')
-        this.setState({
-            valueArr: this.copiedArr
-        })
-    }
+    // lastItemHandle(newVal) {
+    //     // const copiedArr[this.copiedArr.length - 1] = newVal
+    //     // this.copiedArr.push('')
+    //     this.setState({
+    //         valueArr: [...this.state.valueArr.slice(),]
+    //     })
+    // }
 
     deleteItem(index) {
-        this.copiedArr.splice(index, 1)
         this.setState({
-            valueArr: this.copiedArr
+            valueArr: [...this.state.valueArr.slice(0, index),
+            ...this.state.valueArr.slice(index + 1)]
         })
     }
+
     editItem(newVal, index) {
-        this.copiedArr[index] = newVal
-        this.setState({
-            valueArr: this.copiedArr
-        })
+        (newVal && this.setState({
+            valueArr: [...this.state.valueArr.slice(0, index),
+                newVal,
+            ...this.state.valueArr.slice(index + 1)]
+        }))
+        newVal || this.deleteItem(index)
+
+        if (index === (this.state.valueArr.length - 1)) {
+            this.setState({
+                valueArr: [...this.state.valueArr.slice(0, index),
+                    newVal,
+                ...this.state.valueArr.slice(index + 1), '']
+            })
+        }
     }
 
     render() {
-        const { valueArr } = this.state
         return (
             <div>
                 <ol>
                     {this.state.valueArr.map((item, index) =>
                         <ListItem key={index}
-                            valueArr={valueArr}
+                            value={item}
                             index={index}
-                            lastItemHandle={(e) => this.lastItemHandle(e)}
-                            deleteItem={() => this.deleteItem(index)}
                             editItem={(e) => this.editItem(e, index)} />
                     )}
                 </ol>
