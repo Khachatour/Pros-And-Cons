@@ -25,20 +25,17 @@ class List extends Component {
     }
 
     editItem(newVal, index) {
-        (newVal && this.setState({
+        newVal && this.setState({
             valueArr: [...this.state.valueArr.slice(0, index),
                 newVal,
             ...this.state.valueArr.slice(index + 1)]
-        }))
-        newVal || this.deleteItem(index)
+        })
 
-        if (index === (this.state.valueArr.length - 1)) {
-            this.setState({
-                valueArr: [...this.state.valueArr.slice(0, index),
-                    newVal,
-                ...this.state.valueArr.slice(index + 1), '']
-            })
-        }
+        newVal || this.deleteItem(index)
+    }
+
+    isLastItem(index) {
+        return index === (this.state.valueArr.length - 1)
     }
 
     render() {
@@ -49,8 +46,9 @@ class List extends Component {
                         <ListItem key={index}
                             value={item}
                             index={index}
-                            editItem={(e) => this.editItem(e, index)} />
+                            editItem={(e) => this.editItem(e, index)}/>
                     )}
+
                 </ol>
             </div>
         )
@@ -58,3 +56,12 @@ class List extends Component {
 }
 
 export default List
+
+
+// if (index === (this.state.valueArr.length - 1)) {
+//             this.setState({
+//                 valueArr: [...this.state.valueArr.slice(0, index),
+//                            newVal,
+//                            ...this.state.valueArr.slice(index + 1), '']
+//             })
+//         }
