@@ -1,8 +1,6 @@
 import React from 'react'
 
-
-
-export default function ListItem({ value, index, deleteItem, editItem }) {
+export default function ListItem({ value, index, editItem }) {
 
     const handleInputChanges = (e, index) => editItem(e.target.value, index)
 
@@ -15,3 +13,4 @@ export default function ListItem({ value, index, deleteItem, editItem }) {
 }
 
 
+    

@@ -9,18 +9,22 @@ class List extends Component {
         }
     }
 
-    // lastItemHandle(newVal) {
-    //     // const copiedArr[this.copiedArr.length - 1] = newVal
-    //     // this.copiedArr.push('')
-    //     this.setState({
-    //         valueArr: [...this.state.valueArr.slice(),]
-    //     })
-    // }
+    isLastItem(index) {
+        return index === (this.state.valueArr.length - 1)
+    }
 
     deleteItem(index) {
         this.setState({
             valueArr: [...this.state.valueArr.slice(0, index),
             ...this.state.valueArr.slice(index + 1)]
+        })
+    }
+
+    addEmptyItem(index, newVal) {
+        this.setState({
+            valueArr: [...this.state.valueArr.slice(0, index),
+                newVal,
+            ...this.state.valueArr.slice(index + 1), '']
         })
     }
 
@@ -32,10 +36,8 @@ class List extends Component {
         })
 
         newVal || this.deleteItem(index)
-    }
 
-    isLastItem(index) {
-        return index === (this.state.valueArr.length - 1)
+        this.isLastItem(index) && this.addEmptyItem(index, newVal)
     }
 
     render() {
@@ -46,7 +48,7 @@ class List extends Component {
                         <ListItem key={index}
                             value={item}
                             index={index}
-                            editItem={(e) => this.editItem(e, index)}/>
+                            editItem={(e) => this.editItem(e, index)} />
                     )}
 
                 </ol>
@@ -56,12 +58,3 @@ class List extends Component {
 }
 
 export default List
-
-
-// if (index === (this.state.valueArr.length - 1)) {
-//             this.setState({
-//                 valueArr: [...this.state.valueArr.slice(0, index),
-//                            newVal,
-//                            ...this.state.valueArr.slice(index + 1), '']
-//             })
-//         }
